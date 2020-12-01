@@ -1,0 +1,21 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+
+with open(sys.argv[1]) as infile:
+    costs = []
+    for line in infile:
+        x = int(line.strip())   # storing line
+        costs.append(x)
+        if 2020 - x in costs:   # looking for 2020 - x
+            print(f"Found! {x} + {2020-x} = 2020")
+            print(f"Result is {x * (2020 - x)}")
+            sys.exit(0)
+
+    else:
+        print("Did not find anything...")
