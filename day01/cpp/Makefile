@@ -1,16 +1,12 @@
 SRCDIR := src
 TARGET := part1 part2
 
-BUILD  := $(patsubst %, $(SRCDIR)/%, $(TARGET))
-
 all: $(TARGET)
 
-$(TARGET): $(BUILD)
+$(TARGET): % : $(SRCDIR)/%
 	@cp $^ .
 
-$(SRCDIR)/%: $(SRCDIR)/%.cpp
-
 clean:
-	$(RM) $(TARGET) $(BUILD)
+	$(RM) $(TARGET) $(addprefix $(SRCDIR)/,$(TARGET))
 
 .PHONY: all clean

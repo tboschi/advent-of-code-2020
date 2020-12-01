@@ -1,24 +1,10 @@
+TOPTARGETS := cpp go py clean
 DAYS := $(shell find * -type d -name day*)
-DAYSCPP := $(patsubst %, %/cpp, $(DAYS))
-DAYSGO := $(patsubst %, %/go, $(DAYS))
 
-cpp: $(DAYSCPP)
-
-py: $(DAYSPY)
-	@echo "Don't need to compile python scripts :)"
-
-go: #$(DAYSGO)
-	@echo "Soon to be implemented..."
-
-
-$(DAYSCPP):
-	@echo "Compiling $@"
-	$(MAKE) -C $@
-
-clean: $(DAYS)
+$(TOPTARGETS): $(DAYS)
 
 $(DAYS):
-	$(MAKE) -C $@ clean
+	$(MAKE) -C $@ $(MAKECMDGOALS)
 
 
-.PHONY: cpp py go $(DAYSCPP) $(DAYSGO) clean $(DAYS) 
+.PHONY: $(TOPTRAGETS) $(DAYS) 

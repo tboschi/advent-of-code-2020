@@ -1,8 +1,17 @@
-SOURCES := cpp go
+TOPTARGETS := cpp gp py clean
 
-clean: $(SOURCES)
+cpp:
+	@echo "Compiling C++"
+	$(MAKE) -C cpp
 
-$(SOURCES):
-	$(MAKE) -C $@ clean
+py:
+	@echo "Don't need to compile python scripts :)"
 
-.PHONY: clean $(SOURCES)
+go:
+	@echo "Soon to be implemented..."
+
+clean:
+	$(MAKE) -C cpp clean
+	$(MAKE) -C go  clean
+
+.PHONY: $(TOPTARGETS)
