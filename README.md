@@ -2,7 +2,7 @@
 
 *DISCLAIMER*: this is my own attempt of [Advent of code 2020](https://adventofcode.com/)
 
-I will post solution here in my own time, alghough I will try to keep up to date with the calendar.
+I will post solution here in my own time, although I will try to keep up to date with the calendar.
 There will be solutions written in C++ and python (and soon in golang too).
 
 
@@ -24,7 +24,7 @@ The compiled binaries and sources can be found in the puzzle folders `dayXX`.
 Each puzzle folder contains three subfolder:
 * `cpp` for the C++ solution
 * `py` for the python solution
-* `go` for the GO solution (when available)
+* `go` for the GO solution (when available, still learning it)
 and a README that explains how to run the solution binaries.
 
 Each code subfolder contains their own Makefile, a part from the python one for obvious reasons.
