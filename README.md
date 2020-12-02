@@ -32,4 +32,5 @@ Each code subfolder contains their own Makefile, a part from the python one for 
 ## Puzzles
 
 * [Day 1](day01/)
+* [Day 2](day02/)
 
