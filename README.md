@@ -27,10 +27,9 @@ Each puzzle folder contains three subfolder:
 * `go` for the GO solution (when available, still learning it)
 and a README that explains how to run the solution binaries.
 
-Each code subfolder contains their own Makefile, a part from the python one for obvious reasons.
+Each code subfolder contains their it own Makefile, a part from the python one for obvious reasons.
 
 ## Puzzles
 
 * [Day 1](day01/)
 * [Day 2](day02/)
-
