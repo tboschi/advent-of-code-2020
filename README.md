@@ -24,8 +24,8 @@ The compiled binaries and sources can be found in the puzzle folders `dayXX`.
 Each puzzle folder contains three subfolder:
 * `cpp` for the C++ solution
 * `py` for the python solution
-* `go` for the GO solution (when avaiable)
-and a README that explains how to run the solution binary.
+* `go` for the GO solution (when available)
+and a README that explains how to run the solution binaries.
 
 Each code subfolder contains their own Makefile, a part from the python one for obvious reasons.
 
