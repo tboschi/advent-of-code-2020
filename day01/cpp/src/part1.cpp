@@ -27,8 +27,8 @@ int main(int argc, char** argv) {
 
 		// storing x and looking for 2020 - x in vector
 		costs.push_back(x);
-		auto z = std::find(costs.begin(), costs.end()-1, 2020 - x);
-		if (z != costs.end()-1) {
+		auto z = std::find(costs.begin(), std::prev(costs.end()), 2020 - x);
+		if (z != std::prev(costs.end())) {
 			std::cout << "Found! " << x << " + " << *z
 				  << " = " << x + *z << "\n";
 			std::cout << "Result is " << x * (*z) << "\n";
