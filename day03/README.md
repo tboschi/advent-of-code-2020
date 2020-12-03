@@ -1,6 +1,6 @@
-# Day 1
+# Day 3
 
-The puzzle for [Day 2](https://adventofcode.com/2020/day/2)
+The puzzle for [Day 3](https://adventofcode.com/2020/day/3)
 
 ## Compile and get the solution
 

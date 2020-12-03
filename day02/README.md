@@ -1,4 +1,4 @@
-# Day 1
+# Day 2
 
 The puzzle for [Day 2](https://adventofcode.com/2020/day/2)
 
