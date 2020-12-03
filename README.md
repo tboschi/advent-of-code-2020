@@ -25,6 +25,7 @@ Each puzzle folder contains three subfolder:
 * `cpp` for the C++ solution
 * `py` for the python solution
 * `go` for the GO solution (when available, still learning it)
+
 and a README that explains how to run the solution binaries.
 
 Each code subfolder contains their it own Makefile, a part from the python one for obvious reasons.
