@@ -1,5 +1,5 @@
 TOPTARGETS := cpp go py clean
-DAYS := $(shell find * -type d -name day*)
+DAYS := $(wildcard day*)
 
 $(TOPTARGETS): $(DAYS)
 
