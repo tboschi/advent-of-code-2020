@@ -45,5 +45,5 @@ int main(int argc, char** argv) {
 	}
 
 	std::cout << "There are " << valid << " valid passwords\n";
-	return 1;
+	return 0;
 }
