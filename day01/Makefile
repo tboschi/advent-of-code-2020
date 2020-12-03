@@ -8,7 +8,8 @@ py:
 	@echo "Don't need to compile python scripts :)"
 
 go:
-	@echo "Soon to be implemented..."
+	@echo "Compiling go"
+	$(MAKE) -C go
 
 clean:
 	$(MAKE) -C cpp clean
