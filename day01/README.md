@@ -30,3 +30,8 @@ For the python implementation
 ./py/part1 input
 ./py/part2 input
 ```
+
+For the go implementation
+```
+./go/part1 input
+```
