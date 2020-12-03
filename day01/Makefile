@@ -1,4 +1,4 @@
-TOPTARGETS := cpp gp py clean
+TOPTARGETS := cpp go py clean
 
 cpp:
 	@echo "Compiling C++"
