@@ -28,20 +28,18 @@ int main(int argc, char** argv) {
 
 		//storing x
 		costs.push_back(x);
-	}
-
-	// nested loop
-	for (auto i = costs.begin(); i != costs.end(); ++i)
-		for (auto j = std::next(i); j != costs.end(); ++j) {
-			auto k = std::find(costs.begin(), costs.end(), 2020 - *i - *j);
-			if (k != costs.end()) {
-				std::cout << "Found! " << *i << " + " << *j
-					<< " + " << *k << " = "
-					<< *i + *j + *k << "\n";
-				std::cout << "Result is " << (*i) * (*j) * (*k) << "\n";
+		for (auto y = costs.begin(); y != std::prev(costs.end()); ++y) {
+			auto z = std::find(std::next(y), std::prev(costs.end()),
+						2020 - x - *y);
+			if (z != std::prev(costs.end())) {
+				std::cout << "Found! " << x << " + " << *y
+					<< " + " << *z << " = "
+					<< x + *y + *z << "\n";
+				std::cout << "Result is " << x * (*y) * (*z) << "\n";
 				return 0;
 			}
 		}
+	}
 
 	std::cout << "Did not found anything...\n";
 	return 1;

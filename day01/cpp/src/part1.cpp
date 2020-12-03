@@ -27,11 +27,11 @@ int main(int argc, char** argv) {
 
 		// storing x and looking for 2020 - x in vector
 		costs.push_back(x);
-		auto k = std::find(costs.begin(), costs.end(), 2020 - x);
-		if (k != costs.end()) {
-			std::cout << "Found! " << x << " + " << *k
-				  << " = " << x + *k << "\n";
-			std::cout << "Result is " << x * (*k) << "\n";
+		auto z = std::find(costs.begin(), costs.end()-1, 2020 - x);
+		if (z != costs.end()-1) {
+			std::cout << "Found! " << x << " + " << *z
+				  << " = " << x + *z << "\n";
+			std::cout << "Result is " << x * (*z) << "\n";
 			return 0;
 		}
 		// there is no need to load the full file

@@ -12,7 +12,7 @@ with open(sys.argv[1]) as infile:
     for line in infile:
         x = int(line.strip())   # storing line
         costs.append(x)
-        if 2020 - x in costs:   # looking for 2020 - x
+        if 2020 - x in costs[:-1]:   # looking for 2020 - x
             print(f"Found! {x} + {2020-x} = 2020")
             print(f"Result is {x * (2020 - x)}")
             sys.exit(0)
