@@ -1,0 +1,77 @@
+#! /bin/python
+
+import sys
+
+
+def check_byr(byr):
+    if len(byr) != 4:
+        return False
+    return int(byr) >= 1920 and int(byr) <= 2002
+
+def check_iyr(iyr):
+    if len(iyr) != 4:
+        return False
+    return int(iyr) >= 2010 and int(iyr) <= 2020
+
+def check_eyr(eyr):
+    if len(eyr) != 4:
+        return False
+    return int(eyr) >= 2020 and int(eyr) <= 2030
+
+def check_hgt(hgt):
+    if hgt[-2:] == 'cm':
+        return int(hgt[:-2]) >= 150 and int(hgt[:-2]) <= 193
+
+    if hgt[-2:] == 'in':
+        return int(hgt[:-2]) >= 59 and int(hgt[:-2]) <= 76
+
+def check_hcl(hcl):
+    if hcl[0] == '#':
+        try:
+            int(hcl[1:], 16)
+        except ValueError:
+            return False
+        else:
+            return True
+    return False
+
+def check_ecl(ecl):
+    return ecl in {'amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'}
+
+def check_pid(pid):
+    return len(pid) == 9
+
+def check_cid(cid):
+    return True
+
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+
+mandatory = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
+checks = {'byr': check_byr,
+          'iyr': check_iyr,
+          'eyr': check_eyr,
+          'hgt': check_hgt,
+          'hcl': check_hcl,
+          'ecl': check_ecl,
+          'pid': check_pid,
+          'cid': check_cid }
+
+with open(sys.argv[1]) as infile:
+
+    passports = infile.read().split('\n\n')
+    valid = 0
+    not_valid = 0
+    for pp in passports:
+        data = {dd.partition(':')[0] : dd.partition(':')[2] for dd in pp.split()}
+        if all(field in data.keys() for field in mandatory) and \
+            all(checks[field](value) for field, value in data.items()):
+            valid += 1
+        else:
+            not_valid += 1
+
+    print(f"There are {valid} valid passports")
+    print(f"There are {not_valid} not valid passports")
