@@ -19,10 +19,10 @@ def check_eyr(eyr):
     return int(eyr) >= 2020 and int(eyr) <= 2030
 
 def check_hgt(hgt):
-    if hgt[-2:] == 'cm':
+    if 'cm' in hgt:
         return int(hgt[:-2]) >= 150 and int(hgt[:-2]) <= 193
 
-    if hgt[-2:] == 'in':
+    if 'in' in hgt:
         return int(hgt[:-2]) >= 59 and int(hgt[:-2]) <= 76
 
 def check_hcl(hcl):
