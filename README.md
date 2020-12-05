@@ -1,4 +1,4 @@
-# Advent of code 20202
+# Advent of code 2020
 
 *DISCLAIMER*: this is my own attempt of [Advent of code 2020](https://adventofcode.com/)
 
