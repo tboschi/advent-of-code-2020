@@ -1,0 +1,43 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+
+key_color = "shiny gold"
+
+def number_in_bag(color, full_d):
+    tot = 1
+    for bag, num in full_d[color].items():
+        tot += num * number_in_bag(bag, full_d)
+
+    return tot
+
+
+with open(sys.argv[1]) as infile:
+
+    # dictionary of dictionaries
+    rules = {}
+    for instruction in infile.readlines():
+        instruction = instruction.strip()[:-1]    # remove full stop
+        words = instruction.split()
+        bag_color = ' '.join(words[:2])
+
+        # list of bags contained in upper bag
+        contains = instruction[instruction.find("contain")+8:]
+        rule = {}
+        if "no other" in contains:
+            rules[bag_color] = {}
+        else:
+            for con in contains.split(','):
+                con = con.strip()
+                bags = con.split()
+                rule[' '.join(bags[1:3])] = int(bags[0])
+            rules[bag_color] = rule
+
+    tot_shiny_gold = number_in_bag(key_color, rules) - 1
+
+    print(f"A {key_color} must contain {tot_shiny_gold} bags")

@@ -2,7 +2,7 @@
 
 The puzzle for [Day 1](https://adventofcode.com/2020/day/1)
 
-## Algorithm
+## Algorithm and explanation
 
 ### Part 1
 The **input** file is looped over and an ordered container (vector in C++, list in python, slice in go) is filled with the integer conversion of each line, the value `cost`.
