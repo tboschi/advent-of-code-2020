@@ -40,4 +40,4 @@ with open(sys.argv[1]) as infile:
 
     tot_shiny_gold = number_in_bag(key_color, rules) - 1
 
-    print(f"A {key_color} must contain {tot_shiny_gold} bags")
+    print(f"A {key_color} bag must contain {tot_shiny_gold} bags")

@@ -9,11 +9,11 @@ if len(sys.argv) < 1:
 
 key_color = "shiny gold"
 
-def check_in_bag(color, full_d):
-    if key_color in full_d[color]:
+def check_in_bag(color, rules):
+    if key_color in rules[color]:
         return True
 
-    return any(check_in_bag(name, full_d) for name in full_d[color].keys())
+    return any(check_in_bag(name, rules) for name in rules[color].keys())
 
 
 with open(sys.argv[1]) as infile:
@@ -40,7 +40,7 @@ with open(sys.argv[1]) as infile:
     valid = 0
     for name in rules.keys():
         if check_in_bag(name, rules):
-            print(f"A {name} bag can contain a {key_color}")
+            print(f"A {name} bag can contain a {key_color} one")
             valid += 1
 
     print(f"There are {valid} valid bags")
