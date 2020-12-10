@@ -1,6 +1,6 @@
 # Day 8
 
-The puzzle for [Day 8](https://adventofcode.com/2020/day/6)
+The puzzle for [Day 8](https://adventofcode.com/2020/day/8)
 
 ## Compile and get the solution
 

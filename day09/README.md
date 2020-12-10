@@ -1,6 +1,6 @@
-# Day 7
+# Day 9
 
-The puzzle for [Day 7](https://adventofcode.com/2020/day/7)
+The puzzle for [Day 9](https://adventofcode.com/2020/day/9)
 
 ## Compile and get the solution
 
