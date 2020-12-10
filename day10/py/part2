@@ -25,7 +25,7 @@ with open(sys.argv[1]) as infile:
             arrange += arrangements[j]
             j -= 1
 
-        arrangements.append(arrange); 
+        arrangements.append(arrange)
 
 
     print(f"There are {arrangements[-1]} valid arrangements")
