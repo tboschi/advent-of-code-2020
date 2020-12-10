@@ -22,7 +22,7 @@ with open(sys.argv[1]) as infile:
         arrange = arrangements[i-1]
         j = i - 2
         while j >= 0 and adaptors[i] - adaptors[j] <= 3:
-            arrange += arrangements[j];
+            arrange += arrangements[j]
             j -= 1
 
         arrangements.append(arrange); 
