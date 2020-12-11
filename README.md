@@ -1,9 +1,9 @@
 # Advent of code 2020
 
-*DISCLAIMER*: this is my own attempt of [Advent of code 2020](https://adventofcode.com/)
+*DISCLAIMER*: this is my own attempt of [Advent of code 2020](https://adventofcode.com/).
 
-I will post solution here in my own time, although I will try to keep up to date with the calendar.
-There will be solutions written in C++ and python.
+I will post solution here when I have time, typically the day after as puzzles are released at 9pm in my time zone.
+There will be solutions implemented in C++ and python.
 
 
 ## Compile the solutions
