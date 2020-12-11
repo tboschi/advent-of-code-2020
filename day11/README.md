@@ -11,8 +11,4 @@ make cpp
 ./cpp/part2 input
 ```
 
-For the python implementation
-```
-./py/part1 input
-./py/part2 input
-```
+Python implementation coming soon
