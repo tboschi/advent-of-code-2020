@@ -90,7 +90,6 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	// add 0 at the beginning, which is the outlet jolts rate
 	std::vector<std::string> seats;
 	std::string line;
 	while (std::getline(infile, line)) {
