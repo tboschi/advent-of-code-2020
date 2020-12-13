@@ -1,0 +1,44 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+def check(state, x, y):
+    block = ''.join(line[max(0,x-1):x+2] for line in state[max(0,y-1):y+2])
+    return block.count('#')
+
+def next(state):
+    newstate = []
+    for y in range(len(state)):
+        newline = ""
+        for x in range(len(state[y])):
+            if state[y][x] == '.':
+                newline += '.'
+                continue
+
+            occupied = check(state, x, y)
+            if state[y][x] == 'L' and not occupied:
+                newline += '#'
+            # occupied will be +1 the number of surrounding seats
+            elif state[y][x] == '#' and occupied >= 5:
+                newline += 'L'
+            else:
+                newline += state[y][x]
+        newstate.append(newline)
+    return newstate
+
+with open(sys.argv[1]) as infile:
+
+    # dictionary of dictionaries
+    seats = infile.read().split()
+    diff = True
+    while diff:
+        next_seats = next(seats)
+        diff = (seats != next_seats)
+        seats = next_seats
+
+    occupied = sum(line.count('#') for line in next_seats)
+    print(f"There are {occupied} occupied seats")
