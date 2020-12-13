@@ -1,0 +1,41 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+def move(ship, act, units):
+    if act == 'E':
+        return (ship[0]+units, ship[1])
+    if act == 'W':
+        return (ship[0]-units, ship[1])
+    if act == 'N':
+        return (ship[0], ship[1]+units)
+    if act == 'S':
+        return (ship[0], ship[1]-units)
+
+rot = {'N' : 'E', 'E' : 'S', 'S' : 'W', 'W' : 'N'}
+with open(sys.argv[1]) as infile:
+
+    dirs = 'E'
+    ship = (0, 0)
+    for cmd in infile.readlines():
+        cmd = cmd.strip()
+        act = cmd[0]
+        units = int(cmd[1:])
+
+        if act == 'F':
+            ship = move(ship, dirs, units)
+        elif act == 'R':
+            for i in range(int(cmd[1:]) // 90):
+                dirs = rot[dirs]
+        elif act == 'L':
+            for i in range(int(cmd[1:]) // 30):
+                dirs = rot[dirs]
+        else:
+            ship = move(ship, act, units)
+
+    # dictionary of dictionaries
+    print(f"The ship is at {ship} = {abs(ship[0])+abs(ship[1])}")

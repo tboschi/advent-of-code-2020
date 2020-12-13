@@ -1,6 +1,6 @@
-# Day 11
+# Day 12
 
-The puzzle for [Day 11](https://adventofcode.com/2020/day/11)
+The puzzle for [Day 12](https://adventofcode.com/2020/day/12)
 
 ## Compile and get the solution
 
@@ -14,5 +14,5 @@ make cpp
 For the Python implementation
 ```
 ./py/part1 input
+./py/part2 input
 ```
-Second part in Python coming soon

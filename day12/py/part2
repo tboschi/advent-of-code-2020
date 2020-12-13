@@ -1,0 +1,51 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+def move(ship, way, units):
+    return (ship[0] + way[0]*units, ship[1] + way[1]*units)
+
+def point(way, act, units):
+    if act == 'E':
+        return (way[0]+units, way[1])
+    if act == 'W':
+        return (way[0]-units, way[1])
+    if act == 'N':
+        return (way[0], way[1]+units)
+    if act == 'S':
+        return (way[0], way[1]-units)
+
+def rotate(way, units):
+    if units%4 == 0:
+        return way
+    if units%4 == 1:
+        return (way[1],  -way[0])
+    if units%4 == 2:
+        return (-way[0], -way[1])
+    if units%4 == 3:
+        return (-way[1],  way[0])
+
+with open(sys.argv[1]) as infile:
+
+    ship = (0, 0)
+    way = (10, 1)
+    for cmd in infile.readlines():
+        cmd = cmd.strip()
+        act = cmd[0]
+        units = int(cmd[1:])
+
+        if act == 'F':
+            ship = move(ship, way, units)
+        elif act == 'R':
+            way = rotate(way, int(cmd[1:]) // 90)
+        elif act == 'L':
+            way = rotate(way, 3 * int(cmd[1:]) // 90)
+        else:
+            way = point(way, act, units)
+
+    # dictionary of dictionaries
+    print(f"The ship is at {ship} = {abs(ship[0])+abs(ship[1])}")
