@@ -1,0 +1,40 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+def solve(p0, p1, dt):
+    n1 = 0;
+    if dt >= 0:
+        n1 = dt // p1 + 1;
+    v = (p1 * n1 - dt) % p0
+    while v != 0:
+        v = (v + p1) % p0
+        n1 += 1
+    n0 = (p1 * n1 - dt) // p0
+    print(f"{p0} * {n0} = {p1} * {n1} - {dt}")
+    return n0 #, n1
+
+
+with open(sys.argv[1]) as infile:
+
+    est_time = infile.readline().strip()
+    buses = [(int(b), c) for c, b in enumerate(infile.readline().strip().split(',')) if b != 'x']
+
+    # remove offset (it is 0 anyway...)
+    mul = [b[1] - buses[0][1] for b in buses[1:]]
+    res = [-buses[0][1]]
+    for i, b in enumerate(buses[:-1]):
+        res.append(solve(b[0], buses[i+1][0], mul[0]))
+        mul = [res[-1] - solve(b[0], c[0], mul[j+1]) for j, c in enumerate(buses[i+2:])]
+
+    eta = 0
+    res.reverse()
+    for i, r in enumerate(res):
+        eta *= buses[-i-1][0]
+        eta += r
+
+    print(f"Smallest increment is {eta}")

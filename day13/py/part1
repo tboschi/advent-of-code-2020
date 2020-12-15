@@ -1,0 +1,22 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+with open(sys.argv[1]) as infile:
+
+    est_time = int(infile.readline().strip())
+    buses = [int(b) for b in infile.readline().strip().split(',') if b != 'x']
+
+    bi = buses[0]
+    eta = bi - est_time % bi
+    for i, b in enumerate(buses[1:]):
+        if b - est_time % b < eta:
+            eta = b - est_time % b
+            bi = b
+
+    print(f"The first bus is # {bi}")
+    print(f"The answer is {bi * eta}")

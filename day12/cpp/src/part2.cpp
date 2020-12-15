@@ -7,10 +7,6 @@
 #include <numeric>
 #include <map>
 
-using floormap = std::vector<std::string>;
-
-const std::vector<char> rot = {'N', 'E', 'S', 'W'};
-
 // cont number of occupied seats around x, y
 void move_f(std::array<int, 2> &ship, const std::array<int, 2> &way, int units) {
 	ship[0] += way[0] * units;
