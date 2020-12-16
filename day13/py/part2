@@ -38,3 +38,22 @@ with open(sys.argv[1]) as infile:
         eta += r
 
     print(f"Smallest increment is {eta}")
+
+# second attempt, condesning above equations into less lines
+# resulting in more elegant and efficient code
+
+with open(sys.argv[1]) as infile:
+
+    est_time = infile.readline().strip()
+    buses = [(int(b), c) for c, b in enumerate(infile.readline().strip().split(',')) if b != 'x']
+
+    increment = 1
+    n0 = 0
+    b0 = buses[0]
+    for b in buses[1:]:
+        while (b0[0] * n0 - b0[1] + b[1]) % b[0] != 0:
+            n0 += increment
+        print(f"{b0[0]} * {n0} + {b[1] - b0[1]} = {b[0]} * n1")
+        increment *= b[0]
+
+    print(f"First available time is {b0[0] * n0 - b0[1]}")

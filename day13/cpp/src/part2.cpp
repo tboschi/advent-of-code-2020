@@ -57,6 +57,7 @@ int main(int argc, char** argv) {
 	if (buses.size() <= 1)
 		return 1;
 
+	// solving equation recursively
 	std::vector<long int> mul;
 	mul.reserve(buses.size() - 1);
 	for (size_t i = 1; i < buses.size(); ++i)
@@ -76,6 +77,7 @@ int main(int argc, char** argv) {
 		mul = mul2;
 	}
 
+	// combining results
 	size_t eta = 0;
 	for (size_t i = 0; i < res.size(); ++i) {
 		eta *= buses[res.size()-i-1].first;	
@@ -84,11 +86,24 @@ int main(int argc, char** argv) {
 
 	std::cout << "Smallest increment is " << eta << "\n";
 
-	//bool keep = true;
-	//size_t n = 
-	//while (keep) {
-		//for (size_t 
-	//}
+	// same as above, but highly otpimized
+	// it is bascially condensing all the recursive equations
+	// into less steps and is much much more elegant
+	// there is no need to combine the resuls as it is done
+	// automatically
+	//
+	size_t increment = 1;
+	size_t n0 = 0;
+	auto b0 = buses[0];
+	for (size_t i = 1; i < buses.size(); ++i) {
+		while ((b0.first * n0 - b0.second + buses[i].second) % buses[i].first != 0)
+			n0 += increment;
+		std::cout << b0.first << " * " << n0 << " + " << -b0.second + buses[i].second
+			  << " = " << buses[i].first << " * n1\n";
+		increment *= buses[i].first;
+	}
+
+	std::cout << "First avilable time is " << b0.first * n0 - b0.second << "\n";
 
 	return 0;
 }
