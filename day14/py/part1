@@ -1,0 +1,37 @@
+#! /bin/python
+
+import sys
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+class Memory(dict):
+    def __init__(self):
+        self.memory = dict()
+
+    def set_mask(self, mask):
+        self.base = int(mask.replace('X', '0'), 2)
+        self.mask = int(mask.replace('1', '0').replace('X', '1'), 2)
+
+    def __getitem__(self, key):
+        return self.memory[key]
+
+    def __setitem__(self, key, value):
+        self.memory[key] = self.base + (self.mask & value)
+
+    def __repr__(self):
+        return self.memory.__repr__()
+
+with open(sys.argv[1]) as infile:
+
+    mem = Memory()
+    for line in infile.readlines():
+        #print(line.strip())
+        if "mask" in line:
+            key, _, val = line.partition('=')
+            mem.set_mask(val.strip())
+        else:
+            exec(line)
+
+    print("Result is", sum(list(mem.memory.values())))
