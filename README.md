@@ -2,7 +2,7 @@
 
 *DISCLAIMER*: this is my own attempt of [Advent of code 2020](https://adventofcode.com/).
 
-I will post solution here when I have time, typically the day after as puzzles are released at 9pm in my time zone.
+I will post solution here when I have time.
 There will be solutions implemented in C++ and python.
 
 
@@ -42,3 +42,4 @@ Each code subfolder contains their it own Makefile, a part from the python one f
 * [Day 13](day13/)
 * [Day 14](day14/)
 * [Day 15](day15/)
+* [Day 16](day16/)
