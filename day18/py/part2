@@ -1,0 +1,66 @@
+#! /bin/python
+
+import sys
+import operator as op
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+def express(line):
+    res = 0
+    tmp = ""
+    act = op.add
+
+    c = 0
+    stack = []
+    while c < len(line):
+        if line[c].isdigit():
+            tmp += line[c]
+        # look for matchin parenthesis
+        elif line[c] == '(':
+            p = 1
+            while p > 0 and c < len(line):
+                c += 1
+                tmp += line[c]
+                if line[c] == '(':
+                    p += 1
+                elif line[c] == ')':
+                    p -= 1
+            # do operation with inside expression
+            res = act(res, express(tmp[:-1]))
+            tmp = ""
+
+        elif line[c] == '*':
+            #act = op.mul
+            stack.append(res)
+            res = 0
+        elif tmp:    # any other characther, i.e. empty
+            #if act == op.add:   # addition has precedence
+            res += int(tmp)
+            tmp = ""
+        c += 1
+
+    # res is assigned to last value 
+    res += int(tmp) if tmp else 0
+    for a in stack:
+        res *= a
+
+    return res
+
+
+with open(sys.argv[1]) as infile:
+
+    # list of string
+    tot = 0
+    for line in infile.readlines():
+        if '#' in line:
+            line, _, _ = line.partition('#')
+        if not line:
+            continue
+        a = express(line)
+        print(line.strip(), "=", a)
+        tot += a
+    
+    print(f"Total result is {tot}")
+

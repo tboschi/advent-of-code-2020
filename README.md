@@ -43,3 +43,5 @@ Each code subfolder contains their it own Makefile, a part from the python one f
 * [Day 14](day14/)
 * [Day 15](day15/)
 * [Day 16](day16/)
+* [Day 17](day17/)
+* [Day 18](day18/)

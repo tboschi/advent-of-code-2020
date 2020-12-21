@@ -1,0 +1,119 @@
+#! /bin/python
+
+import sys
+import copy
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+class conway:
+    def __init__(self, seed):
+        def convert(char):
+            return char == '#'
+
+        plane = [list(map(convert, line)) for line in seed]
+        cube = [plane]
+        self.hyper = [cube]
+
+    # each round automatically extend space 
+    def extend(self):
+
+        # extend x dimension
+        for cube in self.hyper:
+            for plane in cube:
+                for line in plane:
+                    line.insert(0, False)
+                    line.append(False)
+
+        # extend y dimension
+        for cube in self.hyper:
+            for plane in cube:
+                plane.insert(0, [False]*len(plane[0]))
+                plane.append([False]*len(plane[0]))
+
+        # extend z dimension
+        for cube in self.hyper:
+            cube.insert(0, [[False]*len(cube[0][0]) for i in range(len(cube[0]))])
+            cube.append([[False]*len(cube[0][0]) for i in range(len(cube[0]))])
+
+        # extend w dimension
+        cube = []
+        for plane in self.hyper[0]:
+            cube.append([[False]*len(plane[0]) for i in range(len(plane))])
+        self.hyper.insert(0, copy.deepcopy(cube))
+        self.hyper.append(copy.deepcopy(cube))
+
+
+    def check(self, x, y, z, w):
+        actives = 0
+        for h in [w-1, w, w+1]:
+            if h < 0 or h >= len(self.hyper):
+                continue
+            for i in [z-1, z, z+1]:
+                if i < 0 or i >= len(self.hyper[h]):
+                    continue
+                for j in [y-1, y, y+1]:
+                    if j < 0 or j >= len(self.hyper[h][i]):
+                        continue
+                    for k in [x-1, x, x+1]:
+                        if k < 0 or k >= len(self.hyper[h][i][j]):
+                            continue
+                        if h == w and i == z and j == y and k == x:
+                            continue
+                        actives += self.hyper[h][i][j][k]
+        return actives
+
+    def next(self):
+        self.extend()
+
+        newhyper = copy.deepcopy(self.hyper)
+        for w, cube in enumerate(newhyper):
+            for z, plane in enumerate(cube):
+                for y, line in enumerate(plane):
+                    for x, cell in enumerate(line):
+                        actives = self.check(x, y, z, w)
+                        if cell and (actives < 2 or actives > 3):
+                            newhyper[w][z][y][x] = False
+                        elif (not cell) and actives == 3:
+                            newhyper[w][z][y][x] = True
+
+        res = (newhyper != self.hyper)
+        self.hyper = newhyper
+        return res
+
+    def count(self):
+        actives = 0
+        for cube in self.hyper:
+            for plane in cube:
+                for line in plane:
+                    actives += sum(line)
+        return actives
+
+    def __repr__(self):
+        out = ""
+        for w, cube in enumerate(self.hyper):
+            for z, plane in enumerate(cube):
+                out += f'z={z-(len(cube)-1)//2}, w={w-(len(self.hyper)-1)//2}\n'
+                for y, line in enumerate(plane):
+                    out += ''.join('#' if cell else '.' for cell in line)
+                    #out += '\t'
+                    #out += ''.join(str(self.check(x, y, z, w)) for x,_ in enumerate(line))
+                    out += '\n'
+                out += '\n'
+        return out
+    
+
+with open(sys.argv[1]) as infile:
+
+    # list of string
+    layer0 = infile.read().split()
+
+    state = conway(layer0)
+    for i in range(6):
+        print("cycle", i)
+        print(state)
+        state.next()
+
+    occupied = state.count()
+    print(f"There are {occupied} active hypercubes")

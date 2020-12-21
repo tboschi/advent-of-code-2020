@@ -1,0 +1,102 @@
+#! /bin/python
+
+import sys
+import copy
+
+if len(sys.argv) < 1:
+    print("Input file expected", file=sys.stderr)
+    sys.exit(1)
+
+class conway:
+    def __init__(self, seed):
+        def convert(char):
+            return char == '#'
+
+        plane = [list(map(convert, line)) for line in seed]
+        self.cube = [plane]
+
+    # each round automatically extend space 
+    def extend(self):
+
+        # extend x dimension
+        for plane in self.cube:
+            for line in plane:
+                line.insert(0, False)
+                line.append(False)
+
+        # extend y dimension
+        for plane in self.cube:
+            plane.insert(0, [False]*len(plane[0]))
+            plane.append([False]*len(plane[0]))
+
+        # extend z dimension
+        self.cube.insert(0, [[False]*len(self.cube[0][0]) for i in range(len(self.cube[0]))])
+        self.cube.append([[False]*len(self.cube[0][0]) for i in range(len(self.cube[0]))])
+
+
+    def check(self, x, y, z):
+        actives = 0
+        for i in [z-1, z, z+1]:
+            if i < 0 or i >= len(self.cube):
+                continue
+            for j in [y-1, y, y+1]:
+                if j < 0 or j >= len(self.cube[i]):
+                    continue
+                for k in [x-1, x, x+1]:
+                    if k < 0 or k >= len(self.cube[i][j]):
+                        continue
+                    if i == z and j == y and k == x:
+                        continue
+                    actives += self.cube[i][j][k]
+        return actives
+
+    def next(self):
+        self.extend()
+
+        newcube = copy.deepcopy(self.cube)
+        for z, plane in enumerate(newcube):
+            for y, line in enumerate(plane):
+                for x, cell in enumerate(line):
+                    actives = self.check(x, y, z)
+                    if cell and (actives < 2 or actives > 3):
+                        newcube[z][y][x] = False
+                    elif (not cell) and actives == 3:
+                        newcube[z][y][x] = True
+
+        res = (newcube != self.cube)
+        self.cube = newcube
+        return res
+
+    def count(self):
+        actives = 0
+        for plane in self.cube:
+            for line in plane:
+                actives += sum(line)
+        return actives
+
+    def __repr__(self):
+        out = ""
+        for z, plane in enumerate(self.cube):
+            out += f'z={z-(len(self.cube)-1)//2}\n'
+            for y, line in enumerate(plane):
+                out += ''.join('#' if cell else '.' for cell in line)
+                #out += '\t'
+                #out += ''.join(str(self.check(x, y, z)) for x,_ in enumerate(line))
+                out += '\n'
+            out += '\n'
+        return out
+    
+
+with open(sys.argv[1]) as infile:
+
+    # list of string
+    layer0 = infile.read().split()
+
+    state = conway(layer0)
+    for i in range(6):
+        print("cycle", i)
+        print(state)
+        state.next()
+
+    occupied = state.count()
+    print(f"There are {occupied} active cubes")
